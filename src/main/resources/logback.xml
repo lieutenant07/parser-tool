@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs" />
+
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %white(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <timestamp key="date" timeReference="contextBirth" datePattern="yyyy-MM-dd'_'HH;mm;ss;SSS"/>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS}/parser-tool-${date}.log</file>
+        <encoder>
+            <Pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <logger name="com.assignment" level="trace" additivity="false">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
